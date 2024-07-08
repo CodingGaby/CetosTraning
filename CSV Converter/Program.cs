@@ -13,9 +13,9 @@ namespace CSV_Converter
         static void Main(string[] args)
         {
             //PATHS
-            var csvPath = @"C:\Users\macma\Desktop\supermarket.csv";
-            var jsonPath = @"C:\Users\macma\Desktop\supermarket2.json";
-            var xmlPath = @"C:\Users\macma\Desktop\supermarket.xml";
+            var csvPath = @"C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\prueba.csv";
+            var jsonPath = @"C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\prueba.json";
+            var xmlPath = @"C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\prueba.xml";
 
             //Leer datos de archivo CSV
             var csvData = ReadCsvFile(csvPath);
@@ -38,21 +38,25 @@ namespace CSV_Converter
             var csvData = new List<Dictionary<string, string>>();
             using (var reader = new StreamReader(csvPath))
             {
-                var headers = reader.ReadLine()?.Split(',').ToList();
+                //var headers = reader.ReadLine()?.Split(',').ToList();
 
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
                     if (line == null) continue;
 
-                    var cells = line.Split(',').ToList();
-                    if (RowHasData(cells))
+                    var cells = line.Split(',');
+                    if (cells.Length >= 2)
+                    //if (RowHasData(cells))
                     {
                         var row = new Dictionary<string, string>();
-                        for (int i = 0; i < headers.Count; i++)
-                        {
-                            row[headers[i]] = cells.ElementAtOrDefault(i) ?? string.Empty;
-                        }
+                        string key = cells[0].Trim();
+                        string value = cells[1].Trim('=', '"').Trim();
+                        row[key] = value;
+                        //for (int i = 0; i < headers.Count; i++)
+                        //{
+                        //    row[headers[i]] = cells.ElementAtOrDefault(i) ?? string.Empty;
+                        //}
                         csvData.Add(row);
                     }
                 }
