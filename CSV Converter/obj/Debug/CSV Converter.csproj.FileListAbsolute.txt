@@ -1,0 +1,20 @@
+C:\Users\macma\Source\Repos\CodingGaby\CetosTraning\CSV Converter\bin\Debug\CSV Converter.exe.config
+C:\Users\macma\Source\Repos\CodingGaby\CetosTraning\CSV Converter\bin\Debug\CSV Converter.exe
+C:\Users\macma\Source\Repos\CodingGaby\CetosTraning\CSV Converter\bin\Debug\CSV Converter.pdb
+C:\Users\macma\Source\Repos\CodingGaby\CetosTraning\CSV Converter\obj\Debug\CSV Converter.csproj.AssemblyReference.cache
+C:\Users\macma\Source\Repos\CodingGaby\CetosTraning\CSV Converter\obj\Debug\CSV Converter.csproj.CoreCompileInputs.cache
+C:\Users\macma\Source\Repos\CodingGaby\CetosTraning\CSV Converter\obj\Debug\CSV Converter.exe
+C:\Users\macma\Source\Repos\CodingGaby\CetosTraning\CSV Converter\obj\Debug\CSV Converter.pdb
+C:\Users\macma\Source\Repos\CodingGaby\CetosTraning\CSV Converter\bin\Debug\Newtonsoft.Json.dll
+C:\Users\macma\Source\Repos\CodingGaby\CetosTraning\CSV Converter\bin\Debug\Newtonsoft.Json.xml
+C:\Users\macma\Source\Repos\CodingGaby\CetosTraning\CSV Converter\obj\Debug\CSV Conv.3F517BAF.Up2Date
+C:\Users\tgtsd\Source\Repos\CetosTraning\CSV Converter\bin\Debug\CSV Converter.exe.config
+C:\Users\tgtsd\Source\Repos\CetosTraning\CSV Converter\bin\Debug\CSV Converter.exe
+C:\Users\tgtsd\Source\Repos\CetosTraning\CSV Converter\bin\Debug\CSV Converter.pdb
+C:\Users\tgtsd\Source\Repos\CetosTraning\CSV Converter\bin\Debug\Newtonsoft.Json.dll
+C:\Users\tgtsd\Source\Repos\CetosTraning\CSV Converter\bin\Debug\Newtonsoft.Json.xml
+C:\Users\tgtsd\Source\Repos\CetosTraning\CSV Converter\obj\Debug\CSV Converter.csproj.AssemblyReference.cache
+C:\Users\tgtsd\Source\Repos\CetosTraning\CSV Converter\obj\Debug\CSV Converter.csproj.CoreCompileInputs.cache
+C:\Users\tgtsd\Source\Repos\CetosTraning\CSV Converter\obj\Debug\CSV Converter.csproj.CopyComplete
+C:\Users\tgtsd\Source\Repos\CetosTraning\CSV Converter\obj\Debug\CSV Converter.exe
+C:\Users\tgtsd\Source\Repos\CetosTraning\CSV Converter\obj\Debug\CSV Converter.pdb
