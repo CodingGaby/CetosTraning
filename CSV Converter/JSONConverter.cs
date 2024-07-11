@@ -18,6 +18,8 @@ namespace CSV_Converter
 
         public string ConvertToJson()
         {
+            Logger.WriteLog("Converting CSV file to JSON...");
+            Logger.WriteLog("CSV File has been converted to JSON successfully.");
             return JsonConvert.SerializeObject(csvData, Formatting.Indented);
         }
     }

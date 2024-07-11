@@ -48,10 +48,12 @@ namespace CSV_Converter
 
         public string ConvertToXml()
         {
+            Logger.WriteLog("Converting CSV file to XML...");
             var stringWriter = new StringWriter();
             var serializer = new XmlSerializer(typeof(List<CsvRow>));
 
             serializer.Serialize(stringWriter, csvData);
+            Logger.WriteLog("CSV File has been converted to XML successfully.");
             return stringWriter.ToString();
         }
     }
