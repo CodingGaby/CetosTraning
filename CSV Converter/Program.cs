@@ -17,22 +17,54 @@ namespace CSV_Converter
             var jsonPath = @"C:\Users\macma\Desktop\Res.json";
             var xmlPath = @"C:\Users\macma\Desktop\Res.xml";
 
-            //Leer datos de archivo CSV
-            var csvData = ReadCsvFile(csvPath);
+            bool convert = true;
+            
+            //Preguntar si desea convertir nuevamente el documento
+            while (convert) 
+            {
+                //Leer datos de archivo CSV
+                var csvData = ReadCsvFile(csvPath);
 
-            //Convertir datos de CSV a JSON
-            JSONConverter JSONConv = new JSONConverter(csvData);
-            var json = JSONConv.ConvertToJson();
-            Logger.WriteLog("Writing JSON file...");
-            File.WriteAllText(jsonPath, json);
-            Logger.WriteLog("JSON file has been written successfully.");
+                //Solicitar formato de salida
+                Console.WriteLine("\nPlease select an output format. (press 1 for a JSON format or press 2 for an XML format) ");
+                var formatType = Console.ReadLine();
 
-            //Convertir datos de CSV a XML
-            XMLConverter XMLConv = new XMLConverter(csvData);
-            var xml = XMLConv.ConvertToXml();
-            Logger.WriteLog("Writing XML file...");
-            File.WriteAllText(xmlPath, xml);
-            Logger.WriteLog("XML file has been written successfully.");
+                //Seleccionar formato de salida
+                switch (formatType) {
+                    //Convertir datos de CSV a JSON
+                    case "1":
+
+                        JSONConverter JSONConv = new JSONConverter(csvData);
+                        var json = JSONConv.ConvertToJson();
+                        File.WriteAllText(jsonPath, json);
+                        Console.WriteLine("CSV has been converted to JSON successfully.");
+                        break;
+
+                    //Convertir datos de CSV a XML
+                    case "2":
+
+                        //Convertir datos de CSV a XML
+                        XMLConverter XMLConv = new XMLConverter(csvData);
+                        var xml = XMLConv.ConvertToXml();
+                        Logger.WriteLog("Writing XML file...");
+                        File.WriteAllText(xmlPath, xml);
+                        Logger.WriteLog("XML file has been written successfully.");
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid selection. Please select 1 or 2.");
+                        break;
+                        continue;
+                }
+
+                // Preguntar si desea convertir el archivo de nuevo
+                Console.WriteLine("\nDo you want to convert the file again? (y/n): ");
+                var continueChoice = Console.ReadLine();
+                if (continueChoice.ToLower() != "y") 
+                {
+                    convert = false;
+                }
+            }
         }
 
         static List<Dictionary<string, string>> ReadCsvFile(string csvPath)
@@ -67,7 +99,8 @@ namespace CSV_Converter
             return csvData;
         }
 
-        static bool RowHasData(List<string> cells)
+
+        static bool RowHasData(List<string> cells) 
         {
             return cells.Any(x => x.Length > 0);
         }
