@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace CSV_Converter
 {
@@ -23,7 +24,7 @@ namespace CSV_Converter
             Logger.WriteLog("CSV File has been converted to JSON successfully.");
             return JsonConvert.SerializeObject(csvData, Formatting.Indented);
         }
-
+      
         public static void WriteFile(string filePath, string json) {
             Logger.WriteLog("Writing JSON file...");
             File.WriteAllText(filePath, json);

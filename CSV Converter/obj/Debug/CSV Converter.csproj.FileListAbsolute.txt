@@ -28,3 +28,13 @@ C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\ConverterCSV\CSV Converter\ob
 C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\ConverterCSV\CSV Converter\obj\Debug\CSV Converter.csproj.CopyComplete
 C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\ConverterCSV\CSV Converter\obj\Debug\CSV Converter.exe
 C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\ConverterCSV\CSV Converter\obj\Debug\CSV Converter.pdb
+C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\ConvertCSV\CSV Converter\bin\Debug\CSV Converter.exe.config
+C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\ConvertCSV\CSV Converter\bin\Debug\CSV Converter.exe
+C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\ConvertCSV\CSV Converter\bin\Debug\CSV Converter.pdb
+C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\ConvertCSV\CSV Converter\bin\Debug\Newtonsoft.Json.dll
+C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\ConvertCSV\CSV Converter\bin\Debug\Newtonsoft.Json.xml
+C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\ConvertCSV\CSV Converter\obj\Debug\CSV Converter.csproj.AssemblyReference.cache
+C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\ConvertCSV\CSV Converter\obj\Debug\CSV Converter.csproj.CoreCompileInputs.cache
+C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\ConvertCSV\CSV Converter\obj\Debug\CSV Converter.csproj.CopyComplete
+C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\ConvertCSV\CSV Converter\obj\Debug\CSV Converter.exe
+C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\ConvertCSV\CSV Converter\obj\Debug\CSV Converter.pdb

@@ -13,9 +13,9 @@ namespace CSV_Converter
         static void Main(string[] args)
         {
             //PATHS
-            string csvPath = @"";
-            var jsonPath = @"C:\Users\macma\Desktop\Res.json";
-            var xmlPath = @"C:\Users\macma\Desktop\Res.xml";
+            string csvPath = @"";    
+            var jsonPath = @"C:\Users\ogane\Documents\prueba.json";
+            var xmlPath = @"C:\Users\ogane\Documents\prueba.xml";
 
             try
             {
@@ -59,14 +59,10 @@ namespace CSV_Converter
                         JSONConverter.WriteFile(jsonPath, json);
                         break;
 
-                    //Convertir datos de CSV a XML
+                    // Convert CSV data to XML
                     case "2":
-                        //Convertir datos de CSV a XML
-                        XMLConverter XMLConv = new XMLConverter(csvData);
-                        var xml = XMLConv.ConvertToXml();
-                        Logger.WriteLog("Writing XML file...");
-                        File.WriteAllText(xmlPath, xml);
-                        Logger.WriteLog("XML file has been written successfully.");
+                        var xml = XMLConverter.ConvertToXml(csvData);
+                        XMLConverter.WriteFile(xmlPath, xml);
                         break;
 
                     default:
