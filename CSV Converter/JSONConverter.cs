@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,18 +18,16 @@ namespace CSV_Converter
             csvData = csvDatap;
         }
 
-        public string ConvertToJson()
-        {
+        public static string ConvertToJson(List<Dictionary<string, string>> csvData) {
             Logger.WriteLog("Converting CSV file to JSON...");
+            var jsonConverter = new JSONConverter(csvData);
             Logger.WriteLog("CSV File has been converted to JSON successfully.");
             return JsonConvert.SerializeObject(csvData, Formatting.Indented);
         }
-
-        public static void FunctionToJson(List<Dictionary<string, string>> csvData, string outputPath) {
-            var jsonConverter = new JSONConverter(csvData);
-            var json = jsonConverter.ConvertToJson();
+      
+        public static void WriteFile(string filePath, string json) {
             Logger.WriteLog("Writing JSON file...");
-            File.WriteAllText(outputPath, json);
+            File.WriteAllText(filePath, json);
             Logger.WriteLog("JSON file has been written successfully.");
         }
     }

@@ -55,8 +55,8 @@ namespace CSV_Converter
                     //Convertir datos de CSV a JSON
                     case "1":
                         //Convertir datos de CSV a JSON
-                        JSONConverter.FunctionToJson(csvData, jsonPath);
-                        Logger.WriteLog("JSON file has been written successfully.");
+                        var json = JSONConverter.ConvertToJson(csvData);
+                        JSONConverter.WriteFile(jsonPath, json);
                         break;
 
                     // Convert CSV data to XML
