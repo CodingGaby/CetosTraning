@@ -13,9 +13,9 @@ namespace CSV_Converter
         static void Main(string[] args)
         {
             //PATHS
-            var csvPath = @"C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\prueba.csv";
-            var jsonPath = @"C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\prueba.json";
-            var xmlPath = @"C:\Users\tgtsd\OneDrive\Escritorio\TrainingProject\prueba.xml";
+            var csvPath = @"C:\Users\macma\Desktop\T628395-tcm850-240604-00003-17-e9715984-5faf-4dbd-bd31-899f9d51de8c.csv";
+            var jsonPath = @"C:\Users\macma\Desktop\Res.json";
+            var xmlPath = @"C:\Users\macma\Desktop\Res.xml";
 
             bool convert = true;
             
@@ -43,10 +43,12 @@ namespace CSV_Converter
                     //Convertir datos de CSV a XML
                     case "2":
 
+                        //Convertir datos de CSV a XML
                         XMLConverter XMLConv = new XMLConverter(csvData);
                         var xml = XMLConv.ConvertToXml();
+                        Logger.WriteLog("Writing XML file...");
                         File.WriteAllText(xmlPath, xml);
-                        Console.WriteLine("CSV has been converted to XML successfully.");
+                        Logger.WriteLog("XML file has been written successfully.");
                         break;
 
                     default:
@@ -63,7 +65,6 @@ namespace CSV_Converter
                     convert = false;
                 }
             }
-
         }
 
         static List<Dictionary<string, string>> ReadCsvFile(string csvPath)
@@ -94,6 +95,7 @@ namespace CSV_Converter
                     }
                 }
             }
+            Logger.WriteLog($"CSV File ({csvPath}) has been read successfully.");
             return csvData;
         }
 
