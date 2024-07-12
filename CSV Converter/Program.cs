@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Xml;
-using System.Xml.Serialization;
-using Newtonsoft.Json;
+using System;
 
 namespace CSV_Converter
 {
@@ -12,57 +8,89 @@ namespace CSV_Converter
     {
         static void Main(string[] args)
         {
-            //PATHS
-            var csvPath = @"C:\Users\macma\Desktop\T628395-tcm850-240604-00003-17-e9715984-5faf-4dbd-bd31-899f9d51de8c.csv";
-            var jsonPath = @"C:\Users\macma\Desktop\Res.json";
-            var xmlPath = @"C:\Users\macma\Desktop\Res.xml";
+            // PATHS
+            string csvPath = @"";
+            var jsonPath = @"C:\Users\ogane\Documents\prueba.json";
+            var xmlPath = @"C:\Users\ogane\Documents\prueba.xml";
+
+            try
+            {
+                Console.WriteLine("\nPlease enter CSV File path:");
+
+                // Read path
+                csvPath = Console.ReadLine();
+
+                // Verify that the file exists
+                if (!File.Exists(csvPath))
+                {
+                    Console.WriteLine($"The file is not found in the specified path: {csvPath}");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"There was an ERROR: {ex.Message}");
+                Logger.WriteLog($"There was an ERROR: {ex.Message}");
+            }
 
             bool convert = true;
-            
-            //Preguntar si desea convertir nuevamente el documento
-            while (convert) 
+
+            // Ask if the user wants to convert the document again
+            while (convert)
             {
-                //Leer datos de archivo CSV
+                // Read CSV file data
                 var csvData = ReadCsvFile(csvPath);
 
-                //Solicitar formato de salida
-                Console.WriteLine("\nPlease select an output format. (press 1 for a JSON format or press 2 for an XML format) ");
+                // Request output format
+                Console.WriteLine("\nPlease select an output format: ");
+                Console.WriteLine("1. JSON format");
+                Console.WriteLine("2. XML format");
+                Console.WriteLine("3. Both JSON and XML format");
+                Console.WriteLine("4. Exit");
                 var formatType = Console.ReadLine();
 
-                //Seleccionar formato de salida
-                switch (formatType) {
-                    //Convertir datos de CSV a JSON
+                // Select output format
+                switch (formatType)
+                {
                     case "1":
-
-                        JSONConverter JSONConv = new JSONConverter(csvData);
-                        var json = JSONConv.ConvertToJson();
-                        File.WriteAllText(jsonPath, json);
-                        Console.WriteLine("CSV has been converted to JSON successfully.");
+                        // Convert CSV data to JSON
+                        var json = JSONConverter.ConvertToJson(csvData);
+                        JSONConverter.WriteFile(jsonPath, json);
                         break;
 
-                    //Convertir datos de CSV a XML
                     case "2":
-
-                        //Convertir datos de CSV a XML
-                        XMLConverter XMLConv = new XMLConverter(csvData);
-                        var xml = XMLConv.ConvertToXml();
-                        Logger.WriteLog("Writing XML file...");
-                        File.WriteAllText(xmlPath, xml);
-                        Logger.WriteLog("XML file has been written successfully.");
+                        // Convert CSV data to XML
+                        var xml = XMLConverter.ConvertToXml(csvData);
+                        XMLConverter.WriteFile(xmlPath, xml);
                         break;
+
+                    case "3":
+                        // Convert CSV data to both JSON and XML
+                        json = JSONConverter.ConvertToJson(csvData);
+                        JSONConverter.WriteFile(jsonPath, json);
+                        xml = XMLConverter.ConvertToXml(csvData);
+                        XMLConverter.WriteFile(xmlPath, xml);
+                        break;
+
+                    case "4":
+                        // Exit the application
+                        convert = false;
+                        continue;
 
                     default:
-                        Console.WriteLine("Invalid selection. Please select 1 or 2.");
+                        Console.WriteLine("Invalid selection. Please select 1, 2, 3, or 4.");
                         break;
-                        continue;
                 }
 
-                // Preguntar si desea convertir el archivo de nuevo
-                Console.WriteLine("\nDo you want to convert the file again? (y/n): ");
-                var continueChoice = Console.ReadLine();
-                if (continueChoice.ToLower() != "y") 
+                if (convert)
                 {
-                    convert = false;
+                    // Ask if the user wants to convert the file again
+                    Console.WriteLine("\nDo you want to convert the file again? (y/n): ");
+                    var continueChoice = Console.ReadLine();
+                    if (continueChoice.ToLower() != "y")
+                    {
+                        convert = false;
+                    }
                 }
             }
         }
@@ -72,8 +100,6 @@ namespace CSV_Converter
             var csvData = new List<Dictionary<string, string>>();
             using (var reader = new StreamReader(csvPath))
             {
-                //var headers = reader.ReadLine()?.Split(',').ToList();
-
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
@@ -81,28 +107,17 @@ namespace CSV_Converter
 
                     var cells = line.Split(',');
                     if (cells.Length >= 2)
-                    //if (RowHasData(cells))
                     {
                         var row = new Dictionary<string, string>();
                         string key = cells[0].Trim();
                         string value = cells[1].Trim('=', '"').Trim();
                         row[key] = value;
-                        //for (int i = 0; i < headers.Count; i++)
-                        //{
-                        //    row[headers[i]] = cells.ElementAtOrDefault(i) ?? string.Empty;
-                        //}
                         csvData.Add(row);
                     }
                 }
             }
             Logger.WriteLog($"CSV File ({csvPath}) has been read successfully.");
             return csvData;
-        }
-
-
-        static bool RowHasData(List<string> cells) 
-        {
-            return cells.Any(x => x.Length > 0);
         }
     }
 }

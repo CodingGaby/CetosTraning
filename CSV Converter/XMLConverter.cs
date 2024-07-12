@@ -20,18 +20,11 @@ namespace CSV_Converter
 
     internal class XMLConverter
     {
-        private List<CsvRow> csvData;
-
-        public XMLConverter(List<Dictionary<string, string>> csvDatap)
-        {
-            csvData = ConvertToCsvRows(csvDatap);
-        }
-
-        private List<CsvRow> ConvertToCsvRows(List<Dictionary<string, string>> csvDatap)
+        private static List<CsvRow> ConvertToCsvRows(List<Dictionary<string, string>> csvData)
         {
             var rows = new List<CsvRow>();
 
-            foreach (var dict in csvDatap)
+            foreach (var dict in csvData)
             {
                 var row = new CsvRow { Columns = new List<CsvColumn>() };
 
@@ -46,15 +39,23 @@ namespace CSV_Converter
             return rows;
         }
 
-        public string ConvertToXml()
+        public static string ConvertToXml(List<Dictionary<string, string>> csvData)
         {
             Logger.WriteLog("Converting CSV file to XML...");
+            var rows = ConvertToCsvRows(csvData);
             var stringWriter = new StringWriter();
             var serializer = new XmlSerializer(typeof(List<CsvRow>));
 
-            serializer.Serialize(stringWriter, csvData);
+            serializer.Serialize(stringWriter, rows);
             Logger.WriteLog("CSV File has been converted to XML successfully.");
             return stringWriter.ToString();
+        }
+
+        public static void WriteFile(string filePath, string xml)
+        {
+            Logger.WriteLog("Writing XML file...");
+            File.WriteAllText(filePath, xml);
+            Logger.WriteLog("XML file has been written successfully.");
         }
     }
 }
