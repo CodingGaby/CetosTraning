@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace CSV_Converter
 {
     internal class Program
-    {
+    { 
         static void Main(string[] args)
         {
             //PATHS
@@ -36,8 +36,9 @@ namespace CSV_Converter
 
                         JSONConverter JSONConv = new JSONConverter(csvData);
                         var json = JSONConv.ConvertToJson();
+                        Logger.WriteLog("Writing JSON file...");
                         File.WriteAllText(jsonPath, json);
-                        Console.WriteLine("CSV has been converted to JSON successfully.");
+                        Logger.WriteLog("CSV has been converted to JSON successfully.");
                         break;
 
                     //Convertir datos de CSV a XML
@@ -54,7 +55,6 @@ namespace CSV_Converter
                     default:
                         Console.WriteLine("Invalid selection. Please select 1 or 2.");
                         break;
-                        continue;
                 }
 
                 // Preguntar si desea convertir el archivo de nuevo
