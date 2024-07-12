@@ -13,9 +13,30 @@ namespace CSV_Converter
         static void Main(string[] args)
         {
             //PATHS
-            var csvPath = @"C:\Users\macma\Desktop\T628395-tcm850-240604-00003-17-e9715984-5faf-4dbd-bd31-899f9d51de8c.csv";
+            string csvPath = "";
             var jsonPath = @"C:\Users\macma\Desktop\Res.json";
             var xmlPath = @"C:\Users\macma\Desktop\Res.xml";
+
+            try
+            {
+                Console.WriteLine("\nPlease enter CSV File path:");
+
+                // Read path
+                csvPath = Console.ReadLine();
+
+                // Verify that the file exists
+                if (!File.Exists(csvPath))
+                {
+                    Console.WriteLine($"The file is not found in the specified path: {csvPath}");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"There was an ERROR: {ex.Message}");
+                Logger.WriteLog($"There was an ERROR: {ex.Message}");
+            }
+
 
             bool convert = true;
             
@@ -33,7 +54,7 @@ namespace CSV_Converter
                 switch (formatType) {
                     //Convertir datos de CSV a JSON
                     case "1":
-
+                        //Convertir datos de CSV a JSON
                         JSONConverter JSONConv = new JSONConverter(csvData);
                         var json = JSONConv.ConvertToJson();
                         Logger.WriteLog("Writing JSON file...");
@@ -43,7 +64,6 @@ namespace CSV_Converter
 
                     //Convertir datos de CSV a XML
                     case "2":
-
                         //Convertir datos de CSV a XML
                         XMLConverter XMLConv = new XMLConverter(csvData);
                         var xml = XMLConv.ConvertToXml();
