@@ -13,7 +13,7 @@ namespace CSV_Converter
         static void Main(string[] args)
         {
             //PATHS
-            string csvPath = "";
+            string csvPath = @"";
             var jsonPath = @"C:\Users\macma\Desktop\Res.json";
             var xmlPath = @"C:\Users\macma\Desktop\Res.xml";
 
@@ -59,7 +59,7 @@ namespace CSV_Converter
                         var json = JSONConv.ConvertToJson();
                         Logger.WriteLog("Writing JSON file...");
                         File.WriteAllText(jsonPath, json);
-                        Logger.WriteLog("CSV has been converted to JSON successfully.");
+                        Logger.WriteLog("JSON file has been written successfully.");
                         break;
 
                     //Convertir datos de CSV a XML
