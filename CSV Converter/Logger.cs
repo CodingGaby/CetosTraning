@@ -10,10 +10,19 @@ namespace CSV_Converter
 {
     public static class Logger
     {
+        private static readonly string logPath = Path.Combine(Path.GetTempPath(), "CSV_Converter", "log.txt");
+
+        static Logger()
+        {
+            var logDirectory = Path.GetDirectoryName(logPath);
+            if (!Directory.Exists(logDirectory))
+            {
+                Directory.CreateDirectory(logDirectory);
+            }
+        }
+
         public static void WriteLog(string message)
         {
-            string logPath = ConfigurationManager.AppSettings["logPath"];
-
             using (StreamWriter writer = new StreamWriter(logPath, true))
             {
                 writer.WriteLine($"{DateTime.Now} ---LOG---: {message}");

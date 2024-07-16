@@ -18,14 +18,16 @@ namespace CSV_Converter
             csvData = csvDatap;
         }
 
-        public static string ConvertToJson(List<Dictionary<string, string>> csvData) {
+        public static string ConvertToJson(List<Dictionary<string, string>> csvData)
+        {
             Logger.WriteLog("Converting CSV file to JSON...");
             var jsonConverter = new JSONConverter(csvData);
             Logger.WriteLog("CSV File has been converted to JSON successfully.");
             return JsonConvert.SerializeObject(csvData, Formatting.Indented);
         }
-      
-        public static void WriteFile(string filePath, string json) {
+
+        public static void WriteFile(string filePath, string json)
+        {
             Logger.WriteLog("Writing JSON file...");
             File.WriteAllText(filePath, json);
             Logger.WriteLog("JSON file has been written successfully.");
