@@ -11,7 +11,7 @@ namespace CSV_Converter
             // PATHS
             string csvPath = @"";
 
-            try 
+            ExecuteWithExceptionHandling(() =>
             {
                 Console.WriteLine("\nPlease enter CSV File path:");
 
@@ -19,24 +19,17 @@ namespace CSV_Converter
                 csvPath = Console.ReadLine();
 
                 // Verify that the file exists
-                if (!File.Exists(csvPath)) 
+                if (!File.Exists(csvPath))
                 {
                     Console.WriteLine($"The file is not found in the specified path: {csvPath}");
                     return;
                 }
-            } 
-            catch (Exception ex) 
-            {
-                Console.WriteLine($"There was an ERROR: {ex.Message}");
-                Logger.WriteLog($"There was an ERROR: {ex.Message}");
-            }
-
-
+            });
 
             bool convert = true;
 
             // Ask if the user wants to convert the document again
-            while (convert) 
+            while (convert)
             {
                 // Read CSV file data
                 var csvData = ReadCsvFile(csvPath);
@@ -53,20 +46,19 @@ namespace CSV_Converter
                 var xmlPath = @"";
 
                 // Select output format
-                switch (formatType) 
+                switch (formatType)
                 {
                     case "1":
-
-                        try 
+                        ExecuteWithExceptionHandling(() =>
                         {
                             //Pedir el path de salida del archivo
                             Console.WriteLine("\nPlease enter the path where you want to save the JSON file:");
                             var jsonDirectory = Console.ReadLine();
 
-                            if (!Directory.Exists(jsonDirectory)) 
+                            if (!Directory.Exists(jsonDirectory))
                             {
                                 Console.WriteLine($"The directory does not exist: {jsonDirectory}");
-                                continue;
+                                return;
                             }
 
                             //Pedir el nombre de salida del archivo y añadir la extensión
@@ -77,25 +69,19 @@ namespace CSV_Converter
                             // Convert CSV data to JSON
                             var json = JSONConverter.ConvertToJson(csvData);
                             JSONConverter.WriteFile(jsonPath, json);
-                        } 
-                        catch (Exception ex) 
-                        {
-                            Console.WriteLine($"There was an ERROR: {ex.Message}");
-                            Logger.WriteLog($"There was an ERROR: {ex.Message}");
-                        }
+                        });
                         break;
 
                     case "2":
-
-                        try 
+                        ExecuteWithExceptionHandling(() =>
                         {
                             Console.WriteLine("\nPlease enter the path where you want to save the XML file:");
                             var xmlDirectory = Console.ReadLine();
 
-                            if (!Directory.Exists(xmlDirectory)) 
+                            if (!Directory.Exists(xmlDirectory))
                             {
                                 Console.WriteLine($"The directory does not exist: {xmlDirectory}");
-                                continue;
+                                return;
                             }
 
                             Console.WriteLine("\nPlease enter the file name for the XML file (without extension):");
@@ -105,25 +91,19 @@ namespace CSV_Converter
                             // Convert CSV data to XML
                             var xml = XMLConverter.ConvertToXml(csvData);
                             XMLConverter.WriteFile(xmlPath, xml);
-                        } 
-                        catch (Exception ex) 
-                        {
-                            Console.WriteLine($"There was an ERROR: {ex.Message}");
-                            Logger.WriteLog($"There was an ERROR: {ex.Message}");
-                        }
+                        });
                         break;
 
                     case "3":
-
-                        try 
+                        ExecuteWithExceptionHandling(() =>
                         {
                             Console.WriteLine("\nPlease enter the directory where you want to save the JSON and XML files:");
                             var baseDirectory = Console.ReadLine();
 
-                            if (!Directory.Exists(baseDirectory)) 
+                            if (!Directory.Exists(baseDirectory))
                             {
                                 Console.WriteLine($"The directory does not exist: {baseDirectory}");
-                                continue;
+                                return;
                             }
 
                             Console.WriteLine("\nPlease enter the base file name for both JSON and XML files (without extension):");
@@ -136,12 +116,7 @@ namespace CSV_Converter
 
                             var xml = XMLConverter.ConvertToXml(csvData);
                             XMLConverter.WriteFile(xmlPath, xml);
-                        } 
-                        catch (Exception ex) 
-                        {
-                            Console.WriteLine($"There was an ERROR: {ex.Message}");
-                            Logger.WriteLog($"There was an ERROR: {ex.Message}");
-                        }
+                        });
                         break;
 
                     case "4":
@@ -154,16 +129,29 @@ namespace CSV_Converter
                         break;
                 }
 
-                if (convert) 
+                if (convert)
                 {
                     // Ask if the user wants to convert the file again
                     Console.WriteLine("\nDo you want to convert the file again? (y/n): ");
                     var continueChoice = Console.ReadLine();
-                    if (continueChoice.ToLower() != "y") 
+                    if (continueChoice.ToLower() != "y")
                     {
                         convert = false;
                     }
                 }
+            }
+        }
+
+        static void ExecuteWithExceptionHandling(Action action)
+        {
+            try
+            {
+                action();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"There was an ERROR: {ex.Message}");
+                Logger.WriteLog($"There was an ERROR: {ex.Message}");
             }
         }
 
