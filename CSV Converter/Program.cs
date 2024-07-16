@@ -10,29 +10,34 @@ namespace CSV_Converter
         {
             // PATHS
             string csvPath = @"";
-            var jsonPath = @"C:\Users\ogane\Documents\prueba.json";
-            var xmlPath = @"C:\Users\ogane\Documents\prueba.xml";
 
-            try {
+            try 
+            {
                 Console.WriteLine("\nPlease enter CSV File path:");
 
                 // Read path
                 csvPath = Console.ReadLine();
 
                 // Verify that the file exists
-                if (!File.Exists(csvPath)) {
+                if (!File.Exists(csvPath)) 
+                {
                     Console.WriteLine($"The file is not found in the specified path: {csvPath}");
                     return;
                 }
-            } catch (Exception ex) {
+            } 
+            catch (Exception ex) 
+            {
                 Console.WriteLine($"There was an ERROR: {ex.Message}");
                 Logger.WriteLog($"There was an ERROR: {ex.Message}");
             }
 
+
+
             bool convert = true;
 
             // Ask if the user wants to convert the document again
-            while (convert) {
+            while (convert) 
+            {
                 // Read CSV file data
                 var csvData = ReadCsvFile(csvPath);
 
@@ -44,26 +49,99 @@ namespace CSV_Converter
                 Console.WriteLine("4. Exit");
                 var formatType = Console.ReadLine();
 
+                var jsonPath = @"";
+                var xmlPath = @"";
+
                 // Select output format
-                switch (formatType) {
+                switch (formatType) 
+                {
                     case "1":
-                        // Convert CSV data to JSON
-                        var json = JSONConverter.ConvertToJson(csvData);
-                        JSONConverter.WriteFile(jsonPath, json);
+
+                        try 
+                        {
+                            //Pedir el path de salida del archivo
+                            Console.WriteLine("\nPlease enter the path where you want to save the JSON file:");
+                            var jsonDirectory = Console.ReadLine();
+
+                            if (!Directory.Exists(jsonDirectory)) 
+                            {
+                                Console.WriteLine($"The directory does not exist: {jsonDirectory}");
+                                continue;
+                            }
+
+                            //Pedir el nombre de salida del archivo y añadir la extensión
+                            Console.WriteLine("\nPlease enter the file name for the JSON file (without extension):");
+                            var jsonFileName = Console.ReadLine();
+                            jsonPath = Path.Combine(jsonDirectory, jsonFileName + ".json");
+
+                            // Convert CSV data to JSON
+                            var json = JSONConverter.ConvertToJson(csvData);
+                            JSONConverter.WriteFile(jsonPath, json);
+                        } 
+                        catch (Exception ex) 
+                        {
+                            Console.WriteLine($"There was an ERROR: {ex.Message}");
+                            Logger.WriteLog($"There was an ERROR: {ex.Message}");
+                        }
                         break;
 
                     case "2":
-                        // Convert CSV data to XML
-                        var xml = XMLConverter.ConvertToXml(csvData);
-                        XMLConverter.WriteFile(xmlPath, xml);
+
+                        try 
+                        {
+                            Console.WriteLine("\nPlease enter the path where you want to save the XML file:");
+                            var xmlDirectory = Console.ReadLine();
+
+                            if (!Directory.Exists(xmlDirectory)) 
+                            {
+                                Console.WriteLine($"The directory does not exist: {xmlDirectory}");
+                                continue;
+                            }
+
+                            Console.WriteLine("\nPlease enter the file name for the XML file (without extension):");
+                            var xmlFileName = Console.ReadLine();
+                            xmlPath = Path.Combine(xmlDirectory, xmlFileName + ".xml");
+
+                            // Convert CSV data to XML
+                            var xml = XMLConverter.ConvertToXml(csvData);
+                            XMLConverter.WriteFile(xmlPath, xml);
+                        } 
+                        catch (Exception ex) 
+                        {
+                            Console.WriteLine($"There was an ERROR: {ex.Message}");
+                            Logger.WriteLog($"There was an ERROR: {ex.Message}");
+                        }
                         break;
 
                     case "3":
-                        // Convert CSV data to both JSON and XML
-                        json = JSONConverter.ConvertToJson(csvData);
-                        JSONConverter.WriteFile(jsonPath, json);
-                        xml = XMLConverter.ConvertToXml(csvData);
-                        XMLConverter.WriteFile(xmlPath, xml);
+
+                        try 
+                        {
+                            Console.WriteLine("\nPlease enter the directory where you want to save the JSON and XML files:");
+                            var baseDirectory = Console.ReadLine();
+
+                            if (!Directory.Exists(baseDirectory)) 
+                            {
+                                Console.WriteLine($"The directory does not exist: {baseDirectory}");
+                                continue;
+                            }
+
+                            Console.WriteLine("\nPlease enter the base file name for both JSON and XML files (without extension):");
+                            var baseFileName = Console.ReadLine();
+                            jsonPath = Path.Combine(baseDirectory, baseFileName + ".json");
+                            xmlPath = Path.Combine(baseDirectory, baseFileName + ".xml");
+
+                            var json = JSONConverter.ConvertToJson(csvData);
+                            JSONConverter.WriteFile(jsonPath, json);
+
+                            var xml = XMLConverter.ConvertToXml(csvData);
+                            XMLConverter.WriteFile(xmlPath, xml);
+                        } 
+                        catch (Exception ex) 
+                        {
+                            Console.WriteLine($"There was an ERROR: {ex.Message}");
+                            Logger.WriteLog($"There was an ERROR: {ex.Message}");
+                        }
                         break;
 
                     case "4":
@@ -76,11 +154,13 @@ namespace CSV_Converter
                         break;
                 }
 
-                if (convert) {
+                if (convert) 
+                {
                     // Ask if the user wants to convert the file again
                     Console.WriteLine("\nDo you want to convert the file again? (y/n): ");
                     var continueChoice = Console.ReadLine();
-                    if (continueChoice.ToLower() != "y") {
+                    if (continueChoice.ToLower() != "y") 
+                    {
                         convert = false;
                     }
                 }
