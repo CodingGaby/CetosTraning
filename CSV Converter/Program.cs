@@ -13,22 +13,18 @@ namespace CSV_Converter
             var jsonPath = @"C:\Users\ogane\Documents\prueba.json";
             var xmlPath = @"C:\Users\ogane\Documents\prueba.xml";
 
-            try
-            {
+            try {
                 Console.WriteLine("\nPlease enter CSV File path:");
 
                 // Read path
                 csvPath = Console.ReadLine();
 
                 // Verify that the file exists
-                if (!File.Exists(csvPath))
-                {
+                if (!File.Exists(csvPath)) {
                     Console.WriteLine($"The file is not found in the specified path: {csvPath}");
                     return;
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 Console.WriteLine($"There was an ERROR: {ex.Message}");
                 Logger.WriteLog($"There was an ERROR: {ex.Message}");
             }
@@ -36,8 +32,7 @@ namespace CSV_Converter
             bool convert = true;
 
             // Ask if the user wants to convert the document again
-            while (convert)
-            {
+            while (convert) {
                 // Read CSV file data
                 var csvData = ReadCsvFile(csvPath);
 
@@ -50,8 +45,7 @@ namespace CSV_Converter
                 var formatType = Console.ReadLine();
 
                 // Select output format
-                switch (formatType)
-                {
+                switch (formatType) {
                     case "1":
                         // Convert CSV data to JSON
                         var json = JSONConverter.ConvertToJson(csvData);
@@ -82,13 +76,11 @@ namespace CSV_Converter
                         break;
                 }
 
-                if (convert)
-                {
+                if (convert) {
                     // Ask if the user wants to convert the file again
                     Console.WriteLine("\nDo you want to convert the file again? (y/n): ");
                     var continueChoice = Console.ReadLine();
-                    if (continueChoice.ToLower() != "y")
-                    {
+                    if (continueChoice.ToLower() != "y") {
                         convert = false;
                     }
                 }
